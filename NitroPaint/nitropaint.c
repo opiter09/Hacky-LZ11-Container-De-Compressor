@@ -424,9 +424,6 @@ VOID OpenFileByName(HWND hWnd, LPCWSTR path) {
 		case FILE_TYPE_NANR:
 			data->hWndNanrViewer = CreateNanrViewer(CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, data->hWndMdi, path);
 			break;
-		case FILE_TYPE_NMCR:
-			data->hWndNmcrViewer = CreateNmcrViewer(CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, data->hWndMdi, path);
-			break;
 		case FILE_TYPE_IMAGE:
 			CreateImageDialog(hWnd, path);
 			break;
@@ -1730,7 +1727,6 @@ void RegisterClasses() {
 	RegisterNanrViewerClass();
 	RegisterImageDialogClass();
 	RegisterSpriteSheetDialogClass();
-	RegisterNmcrViewerClass();
 }
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {

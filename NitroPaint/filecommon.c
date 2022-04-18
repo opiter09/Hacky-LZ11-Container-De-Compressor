@@ -7,6 +7,7 @@
 #include "nanr.h"
 #include "texture.h"
 #include "gdip.h"
+#include "compression.h"
 
 LPCWSTR compressionNames[] = { L"None", L"LZ77", L"LZ11", L"LZ11 COMP", L"Huffman 4", L"Huffman 8", NULL };
 
@@ -53,7 +54,10 @@ int fileIdentify(char *file, int size, LPCWSTR path) {
 	if (getCompressionType(file, size) != COMPRESSION_NONE) {
 		buffer = decompress(file, size, &bufferSize);
 	}
-
+	if (getCompressionType(file, size) == COMPRESSION_NONE) {
+		lz11CompHeaderCompress(file, size, &bufferSize);
+	}
+	
 	int type = FILE_TYPE_INVALID;
 
 	//test Nitro formats

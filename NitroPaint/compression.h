@@ -47,3 +47,5 @@ int getCompressionType(char *buffer, int size);
 char *decompress(char *buffer, int size, int *uncompressedSize);
 
 char *compress(char *buffer, int size, int compression, int *compressedSize);
+
+char *lz11CompHeaderCompress(char *buffer, int size, int *compressedSize);

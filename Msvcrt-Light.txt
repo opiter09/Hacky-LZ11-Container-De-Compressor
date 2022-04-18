@@ -1,0 +1,3 @@
+Unlike the rest of the code here, Msvcrt-light.lib was not made by Garhoogin, but rather
+by Haftmann. I found it at https://www-user.tu-chemnitz.de/~heha/hsn/ because NitroPaint
+needed it to compile.

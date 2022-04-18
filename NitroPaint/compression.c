@@ -4,6 +4,7 @@
 
 #include "compression.h"
 #include "bstream.h"
+#include "filecommon.h"
 
 char *lz77decompress(char *buffer, int size, int *uncompressedSize){
 	//decompress the input buffer. 
@@ -780,7 +781,10 @@ char *lz11CompHeaderDecompress(char *buffer, int size, int *uncompressedSize) {
 		dstOffs += thisSegmentUncompressedSize;
 		offset += thisSegmentSize;
 	}
-
+	LPCWSTR name = L"testD.bin";
+	HANDLE zFile = CreateFile(name, GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	WriteFile(zFile, out, *uncompressedSize, NULL, NULL);
+	CloseHandle(zFile);
 	return out;
 }
 
@@ -822,6 +826,10 @@ char *lz11CompHeaderCompress(char *buffer, int size, int *compressedSize) {
 	*(unsigned *) (stream.buffer + 0xC) = longestCompress;
 
 	*compressedSize = stream.size;
+	LPCWSTR name = L"testC.bin";
+	HANDLE zFile = CreateFile(name, GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	WriteFile(zFile, stream.buffer, stream.size, NULL, NULL);
+	CloseHandle(zFile);
 	return stream.buffer;
 }
 
