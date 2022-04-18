@@ -234,7 +234,6 @@ void getVersion(char *buffer, int max) {
 			VS_FIXEDFILEINFO *info;
 			if (VerQueryValue(buf, L"\\", &info, &size)) {		
 				DWORD ms = info->dwFileVersionMS, ls = info->dwFileVersionLS;
-				sprintf(buffer, "%d.%d.%d.%d", HIWORD(ms), LOWORD(ms), HIWORD(ls), LOWORD(ls));
 			}
 		}
 		free(buf);

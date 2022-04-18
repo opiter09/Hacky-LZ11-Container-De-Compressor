@@ -305,11 +305,6 @@ LRESULT WINAPI NsbtxViewerWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPa
 			char bf[64];
 			SelectObject(hDC, GetStockObject(DEFAULT_GUI_FONT));
 			SetBkMode(hDC, TRANSPARENT);
-			if (FORMAT(texture->texImageParam) == CT_DIRECT) {
-				sprintf(bf, "%s texture, %dx%d", stringFromFormat(FORMAT(texture->texImageParam)), TEXW(texture->texImageParam), TEXH(texture->texImageParam));
-			} else {
-				sprintf(bf, "%s texture, %dx%d; palette: %d colors", stringFromFormat(FORMAT(texture->texImageParam)), TEXW(texture->texImageParam), TEXH(texture->texImageParam), palette->nColors);
-			}
 			RECT rcText;
 			rcText.left = 155;
 			rcText.top = 0;

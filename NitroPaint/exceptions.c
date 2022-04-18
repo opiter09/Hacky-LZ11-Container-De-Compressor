@@ -74,39 +74,6 @@ void printStackTrace(CONTEXT *context, EXCEPTION_RECORD *record) {
 	frame.AddrStack.Offset = context->Esp;
 	frame.AddrStack.Segment = (WORD) context->SegSs;
 	frame.AddrStack.Mode = AddrModeFlat;
-
-	LPSTR str = calloc(16384, 1);
-	int strOffset = 0;
-
-	int n = sprintf(str, "Exception 0x%08X occurred at 0x%08X.\n\n", record->ExceptionCode, record->ExceptionAddress);
-	strOffset += n;
-
-	while (1) {
-		BOOL b = StackWalk(IMAGE_FILE_MACHINE_I386, GetCurrentProcess(), thread, &frame, context,
-						   ReadProcessMemoryRoutine, FunctionTableAccessRoutine, GetModuleBaseRoutine, NULL);
-		DWORD err = GetLastError();
-		if (!b) break;
-
-		IMAGEHLP_SYMBOL *pSymbol = calloc(sizeof(IMAGEHLP_SYMBOL) + 255, 1);
-		pSymbol->SizeOfStruct = sizeof(IMAGEHLP_SYMBOL) + 255;
-		pSymbol->MaxNameLength = 255;
-
-		DWORD displacement = 0;
-		b = SymGetSymFromAddr(GetCurrentProcess(), frame.AddrPC.Offset, &displacement, pSymbol);
-
-		if (b) {
-			n = sprintf(str + strOffset, "%ls!%s+0x%X\n", GetModuleFromAddress(frame.AddrPC.Offset, NULL), pSymbol->Name, displacement);
-			strOffset += n;
-		} else {
-			ULONG_PTR base = 0;
-			LPWSTR dll = GetModuleFromAddress(frame.AddrPC.Offset, (PVOID) &base);
-			n = sprintf(str + strOffset, "%ls+0x%X\n", dll, frame.AddrPC.Offset - base);
-			strOffset += n;
-		}
-		free(pSymbol);
-	}
-	MessageBoxA(NULL, str, "An exception occurred.", MB_ICONERROR);
-	free(str);
 }
 
 EXCEPTION_DISPOSITION __cdecl ExceptionHandler(EXCEPTION_RECORD *exceptionRecord, void *establisherFrame, CONTEXT *contextRecord, void *dispatcherContext){
