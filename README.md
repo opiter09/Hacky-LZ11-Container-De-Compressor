@@ -1,4 +1,5 @@
 IMPORTANT: It seems this program will not work without Visual Studio being installed. You don't need to do anything with it, just grab the free Community edition, and make sure to choode the Desktop C++ module.
+Visual Studio can be found at https://visualstudio.microsoft.com/
 
 This used to be an editor for DS graphics files (NCGR, NCBR, NANR, NCER, etc.). And, as far as I can tell, all of that still works. However, I have used the combined powers of CopyPaste, Stack Overflow, and Trial and Error to learn just enough C to hack this into also doing the following:
 - If you open a file compressed using the LZ11 "COMP" format used by the game LEGO Battles, a decompressed version of that file named "testD.bin" will appear in the same directory as the file you inputted
